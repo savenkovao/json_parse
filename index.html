@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style>
+		.result-table {
+			display: none;
+			width: 100%;
+			max-width: 700px;
+			margin: 0 auto;
+			border: 1px solid grey;
+			border-collapse: collapse;
+		}
+		
+		.result-table th,
+		.result-table td {
+			width: 33%;
+			border: 1px solid grey;
+			text-align: center;
+			height: 25px;
+			font-size: 16px;
+		}
+
+		.result-table tr:nth-child(2n){
+			background-color: rgba(88, 88, 88, 0.22);
+		}
+
+		.result-table tr:hover{
+			background-color: #979ddb;
+		}
+
+		.result-table td:hover {
+			color: blue;
+			font-weight: bold;
+		}
+
+
+	</style>
+
+</head>
+<body>
+
+	<div>
+
+	<form id="search-form" action="#">
+		
+		<input type="submit">
+	</form>
+
+		<table id="result-container" class="result-table">
+			<tr>
+				<th>item_1</th>
+				<th>item_2</th>
+				<th>item_3</th>
+			</tr>
+		</table>
+	</div>
+
+	<script>
+
+		var searchForm = document.getElementById('search-form');
+		
+		//Table for results
+		var resultContainer = document.getElementById('result-container');
+	 
+		// JSON object received from server
+		var result = '[["beer","drinks","15.75"],["chips","food","19.99"],["cola","drinks","10.80"],["crakers","food","14.45"],["cups","goods","159.99"],["forks","goods","82.45"],["plates","goods","205.50"],["porridge","food","23.79"],["water","drinks","9.35"]]';
+
+		//creating object from JSON object
+		var resultObj = JSON.parse(result);
+
+		// submit event handler 'onsubmit'
+		searchForm.onsubmit = function() {
+			mkTable();
+		}
+		
+
+		// makes rows and columns with received object-items
+		function mkTable() {
+
+			for (var i = 0; i < resultObj.length; i++) {
+
+				// makes row for each item
+				var row = document.createElement('tr');
+
+				for (var j = 0; j < resultObj[i].length; j++) {
+
+					// makes column (grid) for each value of current item
+					var col = document.createElement('td');
+					var content = resultObj[i][j];
+
+					col.innerHTML = content;
+					row.appendChild(col);
+				}
+
+				resultContainer.appendChild(row);
+			}
+
+			resultContainer.style.display = 'table';
+		}
+
+		
+	</script>
+	
+</body>
+</html>
